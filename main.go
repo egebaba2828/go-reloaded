@@ -7,7 +7,7 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("Kullanım: go run main.go <girdi_dosyasi> <cikti_dosyasi>")
+		fmt.Println("Usage: go run main.go <input_file> <output_file>")
 		return
 	}
 
@@ -16,7 +16,7 @@ func main() {
 
 	content, err := os.ReadFile(inputFile)
 	if err != nil {
-		fmt.Printf("Dosya okunamadı: %v\n", err)
+		fmt.Printf("Error reading file: %v\n", err)
 		return
 	}
 
@@ -24,9 +24,9 @@ func main() {
 
 	err = os.WriteFile(outputFile, []byte(processedText), 0644)
 	if err != nil {
-		fmt.Printf("Dosya yazılamadı: %v\n", err)
+		fmt.Printf("Error writing file: %v\n", err)
 		return
 	}
 
-	fmt.Println("İşlem başarıyla tamamlandı!")
+	fmt.Println("File processed successfully!")
 }
