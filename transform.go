@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// Metni dönüştüren ana fonksiyon
+// Main function to transform text
 func TransformText(text string) string {
 	words := strings.Fields(text)
 	var result []string
@@ -13,7 +13,7 @@ func TransformText(text string) string {
 	for i := 0; i < len(words); i++ {
 		word := words[i]
 
-		// Hex çevirisi
+		// Hex conversion
 		if word == "(hex)" && i > 0 {
 			if val, err := strconv.ParseInt(result[len(result)-1], 16, 64); err == nil {
 				result[len(result)-1] = strconv.FormatInt(val, 10)
@@ -21,7 +21,7 @@ func TransformText(text string) string {
 			continue
 		}
 
-		// Bin çevirisi
+		// Bin conversion
 		if word == "(bin)" && i > 0 {
 			if val, err := strconv.ParseInt(result[len(result)-1], 2, 64); err == nil {
 				result[len(result)-1] = strconv.FormatInt(val, 10)
@@ -29,25 +29,25 @@ func TransformText(text string) string {
 			continue
 		}
 
-		// Büyük harf (up)
+		// Uppercase
 		if word == "(up)" && i > 0 {
 			result[len(result)-1] = strings.ToUpper(result[len(result)-1])
 			continue
 		}
 
-		// Küçük harf (low)
+		// Lowercase
 		if word == "(low)" && i > 0 {
 			result[len(result)-1] = strings.ToLower(result[len(result)-1])
 			continue
 		}
 
-		// İlk harfi büyüt (cap)
+		// Capitalize
 		if word == "(cap)" && i > 0 {
 			result[len(result)-1] = capitalize(result[len(result)-1])
 			continue
 		}
 
-		// Sayısal parametreli etiketler (örn: (up, 2))
+		// Numeric parameter tags (e.g., (up, 2))
 		if strings.HasPrefix(word, "(") && strings.HasSuffix(word, ")") && strings.Contains(word, ",") {
 			cleaned := strings.Trim(word, "()")
 			parts := strings.Split(cleaned, ",")
@@ -70,7 +70,7 @@ func TransformText(text string) string {
 			}
 		}
 
-		// 'a' -> 'an' düzeltmesi
+		// 'a' -> 'an' correction
 		if strings.ToLower(word) == "a" && i < len(words)-1 {
 			nextWord := words[i+1]
 			if len(nextWord) > 0 {
